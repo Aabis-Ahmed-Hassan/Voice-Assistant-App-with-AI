@@ -5,6 +5,8 @@ import 'package:http/http.dart' as http;
 import 'api_key.dart';
 
 class GemeniServices {
+  static List<Map<String, dynamic>> messages = [];
+
   Future<String> isImage(String prompt) async {
     String response = '';
     try {
@@ -34,11 +36,25 @@ class GemeniServices {
         String gemeniResponse = jsonDecode(res.body)['candidates'][0]['content']
                 ['parts'][0]['text']
             .toString();
+
+        messages.add({
+          'parts': [
+            {'text': prompt}
+          ],
+          'role': 'user',
+        });
+
         if (gemeniResponse.toLowerCase().contains('yes')) {
           response = 'Sorry, I can\'t generate images. ';
         } else {
           response = await getTextResponse(prompt);
         }
+        messages.add({
+          'parts': [
+            {'text': response}
+          ],
+          'role': 'model',
+        });
       }
       return response;
     } catch (e) {
@@ -61,8 +77,10 @@ class GemeniServices {
               {
                 'parts': [
                   {'text': prompt}
-                ]
-              }
+                ],
+                'role': 'user',
+              },
+              ...messages
             ],
           },
         ),
