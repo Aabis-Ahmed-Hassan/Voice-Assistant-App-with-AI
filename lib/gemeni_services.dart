@@ -35,7 +35,7 @@ class GemeniServices {
                 ['parts'][0]['text']
             .toString();
         if (gemeniResponse.toLowerCase().contains('yes')) {
-          print('aabis');
+          response = 'Sorry, I can\'t generate images. ';
         } else {
           response = await getTextResponse(prompt);
         }
@@ -79,4 +79,42 @@ class GemeniServices {
       return 'An Internal Error Occurred';
     }
   }
+
+  // Future<String> getImageResponse(String prompt) async {
+  //   try {
+  //     http.Response res = await http.post(
+  //       Uri.parse('https://gemini.google.com//v1/generate_image'),
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'Authorization': 'Bearer $gemeniApiKey'
+  //       },
+  //       // body: jsonEncode(
+  //       //   {
+  //       //     'contents': [
+  //       //       {
+  //       //         'parts': [
+  //       //           {'text': 'Create an image for this format $prompt'}
+  //       //         ]
+  //       //       }
+  //       //     ],
+  //       //   },
+  //       // ),
+  //       body: jsonEncode({
+  //         'prompt': prompt,
+  //       }),
+  //     );
+  //
+  //     if (res.statusCode == 200) {
+  //       print('status code 200');
+  //       return jsonDecode(res.body)['candidates'][0]['content']['parts'][0]
+  //               ['text']
+  //           .toString();
+  //     }
+  //     print(res.statusCode);
+  //     return 'An Internal Error Occurred';
+  //   } catch (e) {
+  //     print('Exception: $e');
+  //     return 'An Internal Error Occurred';
+  //   }
+  // }
 }
