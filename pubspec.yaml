@@ -39,6 +39,7 @@ dependencies:
   http:
   google_fonts: ^6.2.1
   flutter_tts: ^4.2.1
+  flutter_markdown: ^0.7.4+3
 
 
 dev_dependencies:
